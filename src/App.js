@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import fns from './utils/functions';
 import './App.css';
 
 
@@ -23,19 +24,15 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get('/api/cars').then( data => {
+    fns.getCars('/api/cars').then(res => {
       this.setState({
-        cars: data.data
+        cars: res
       })
     })
   }
 
   filterCarsById() {
-    console.log('running')
-    const car = this.state.cars.filter( car => {
-      return car.id === parseInt(this.input.value)
-    })
-    console.log(car)
+    const car = fns.filterById(this.state.cars, this.input.value)
     this.setState({
       carById: car
     })
